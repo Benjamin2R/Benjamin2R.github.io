@@ -1,0 +1,138 @@
+<html>
+<head>
+<title> Custom Game </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,500);
+
+var background = new sjs.Image("Images/Trees.png");
+background.setSize(1000,500);
+
+var aimer = new sjs.Image("Images/aiming icon.png");
+aimer.type = "aimer";
+aimer.setSize(60,60);
+aimer.center();
+aimer.friction = .2;
+sjs.scrollable(aimer,background);
+
+	var playM = new Audio('Music/jungle.wav');
+	var toggle = true;
+	var musicOn = false;
+	sjs.keyDown(SPACE_KEY,function(){
+		if(toggle == true){
+			if(musicOn == false){
+				playM.play();
+				musicOn = true;
+			} else{
+				playM.pause();
+				musicOn = false;
+			}
+			toggle = false;
+			setTimeout(function(){
+				toggle = true;
+			},1000);
+		}//end if toggle statement
+	});//end keydown function
+
+	//keyDown functions
+	sjs.keyDown(LEFT_KEY, function(){
+		aimer.pushLeft(2)
+	});
+
+	sjs.keyDown(RIGHT_KEY, function(){
+		aimer.pushRight(2)
+	});
+
+	sjs.keyDown(UP_KEY, function(){
+		aimer.pushUp(2)
+	});
+
+	sjs.keyDown(DOWN_KEY, function(){
+		aimer.pushDown(2)
+	});
+
+	//monkey
+	setInterval(function(){
+			var speed = Math.floor(0.5 + Math.random()*10);
+			if(Math.random() > 0.5){
+				var monkey = new sjs.Image("Images/monke.png");
+				monkey.type = "monkey";
+				monkey.setSize(100,50);
+				monkey.noBounds = true;
+				monkey.friction = 0;
+				monkey.pushRight(2);
+				monkey.scaleSize(.5 + Math.random() * 1.2);
+				monkey.moveTo(-monkey.getWidth(), Math.random()*(monkey.getClamp().y));
+			}	else {
+				var monkey = new sjs.Image("Images/monke.png");
+				monkey.type = "monkey";
+				monkey.setSize(100,50);
+				monkey.noBounds = true;
+				monkey.friction = 0;
+				monkey.pushLeft(2);
+				monkey.scaleSize(.5 + Math.random() * 1.2);
+				monkey.moveTo(sjs.getWidth(), Math.random()*(monkey.getClamp().y));
+			}
+		},7000);
+	//enemies
+	setInterval(function(){
+			var speed = Math.floor(0.5 + Math.random()*10);
+			if(Math.random() > 0.5){
+				var enemy = new sjs.Image("Images/snake right.png");
+				enemy.type = "enemy";
+				enemy.setSize(100,50);
+				enemy.noBounds = true;
+				enemy.friction = 0;
+				enemy.pushRight(2);
+				enemy.scaleSize(.5 + Math.random() * 1.2);
+				enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y));
+			}	else {
+				var enemy = new sjs.Image("Images/snake left.png");
+				enemy.type = "enemy";
+				enemy.setSize(100,50);
+				enemy.noBounds = true;
+				enemy.friction = 0;
+				enemy.pushLeft(2);
+				enemy.scaleSize(.5 + Math.random() * 1.2);
+				enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y));
+			}
+		},4000);
+	sjs.left_screen.offset(-500);
+	sjs.right_screen.offset(500);
+
+	var hiss = new Audio("Music/pop.mp3");
+	var trumpet = new Audio("Music/trumpet.wav");
+	//score
+	var score = 0;
+	var score_txt = new sjs.Text("Score:0", 21, "white");
+
+	//on hit functions
+	sjs.onHit("enemy",["right_screen","left_screen"],function(x,y){
+			x.destroy();
+		});
+
+	sjs.onHit("aimer","enemy",function(x,y){
+		y.destroy();
+		score = score+1;
+		score_txt.setText("Score: "+score);
+		localStorage.setItem("score",score);
+		hiss.play();
+		if(score >= 20){
+			window.location = "win.html";
+		}
+	});
+
+	sjs.onHit("aimer","monkey",function(x,y){
+		x.destroy
+		window.location = "gameover.html";
+	});
+}; //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Custom Game </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

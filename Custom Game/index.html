@@ -1,0 +1,27 @@
+<html>
+<head>
+<title> index </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+	var background = new sjs.Image("Images/bananas.jpg");
+	background.setSize(500,400);
+
+	var welcome_txt = new sjs.Text("Welcome to my game! Try to save the monkey by moving the target around with the arrow keys and hit the snakes. If you hit 20 snakes you win! But DO NOT hit the monkey. good luck! (press space for music)", 25, "black");
+	welcome_txt.center().offset(0,50);
+
+	var playBtn = new sjs.Button("Play",function(){
+		window.location = "Custom Game.html";
+	});
+	playBtn.center().offset(0,150);
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> index </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<html>
+<head>
+<title> gameover </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+	var background = new sjs.Image("Images/angrymonkey.jpg");
+	background.setSize(500,400);
+
+	var trumpet = new Audio("Music/trumpet.wav");
+
+	var lose_txt = new sjs.Text("You lose! now you have to deal with the angry monkeys :(", 25, "red");
+	lose_txt.center().offset(300,-110);
+	lose_txt.noBounds = false;
+
+	var loseBtn = new sjs.Button("Main Menu",function(){
+		window.location = "index.html";
+	});
+
+	loseBtn.center().offset(120, 10);
+  
+	var playM = new Audio('Music/trumpet.wav');
+	var toggle = true;
+	var musicOn = false;
+	sjs.keyDown(SPACE_KEY,function(){
+		if(toggle == true){
+			if(musicOn == false){
+				playM.play();
+				musicOn = true;
+			} else{
+				playM.pause();
+				musicOn = false;
+			}
+			toggle = false;
+			setTimeout(function(){
+				toggle = true;
+			},1000);
+		}//end if toggle statement
+	});//end keydown function
+	trumpet.play();
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> gameover </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

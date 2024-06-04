@@ -1,0 +1,29 @@
+<html>
+<head>
+<title> win </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+	
+	var background  = new sjs.Image("Images/happymonkey.jpg");
+	background.setSize(500,400);
+
+	var win_text = new sjs.Text("Congrats! You saved the monkey!", 30, "orange");
+	win_text.center().offset(300, -110);
+
+	var menuBtn = new sjs.Button("play again", function(){
+		window.location = "index.html";
+	});
+	menuBtn.center().offset(150, 10);
+
+	
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> win </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
